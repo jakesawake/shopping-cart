@@ -1,0 +1,46 @@
+{
+  "flowers": [
+    {
+      "id": 1,
+      "title": "Lily of the valley",
+      "description": "low-growing, shade-loving perennial...",
+      "price": 6.0,
+      "image": "/images/lily-of-the-valley.svg"
+    },
+    {
+      "id": 2,
+      "title": "Tulips",
+      "description": "perennial, bulbous spring-flowering plants",
+      "price": 8.0,
+      "image": "/images/tulip.svg"
+    },
+    {
+      "id": 3,
+      "title": "Baby's breath",
+      "description": "low-growing, delicate cushions",
+      "price": 6.0,
+      "image": "/images/baby-breath.svg"
+    },
+    {
+      "id": 4,
+      "title": "Dahlias",
+      "description": "vibrant, tuberous perennial plants",
+      "price": 14.99,
+      "image": "/images/dahlia.svg"
+    },
+    {
+      "id": 5,
+      "title": "Daisies",
+      "description": "flower plants in the aster family",
+      "price": 1.5,
+      "image": "/images/daisy.svg"
+    },
+    {
+      "id": 6,
+      "title": "Dianthus",
+      "description": "Mounded plants with gray-green, blue-green, or linear glaucous leaves",
+      "price": 30.0,
+      "image": "/images/dianthus.svg"
+    }
+  ]
+}
