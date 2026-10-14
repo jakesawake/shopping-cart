@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Card from "./Card";
 export default function ShopPage() {
   const [flowers, setFlowers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -8,6 +9,7 @@ export default function ShopPage() {
     async function fetchData() {
       try {
         const response = await fetch("/flowers.json");
+        // TODO: fix error message to also include status
         if (!response.ok) {
           throw new Error("HTTP error! Status:", response.status);
         }
@@ -41,9 +43,9 @@ export default function ShopPage() {
   return (
     <div>
       <h1>Flower List</h1>
-      <ul>
+      <ul className="grid grid-flow-col grid-rows-3 gap-4">
         {flowers.map((flower) => {
-          return <li key={flower.id}>{flower.title}</li>;
+          return <Card key={flower.id} flower={flower} />;
         })}
       </ul>
     </div>
