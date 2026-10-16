@@ -4,9 +4,11 @@ export default function Card({ flower }) {
 
   function handleTypedInput(e) {
     const val = e.target.value;
+    if (val === "") {
+      setQuantity("");
+      return;
+    }
     setQuantity(Number(val));
-    if (val === "") setQuantity("");
-    return;
   }
 
   return (
@@ -14,9 +16,13 @@ export default function Card({ flower }) {
       <img className="size-24" src={flower.image} alt={flower.title} />
       <h2>{flower.title}</h2>
       <p>{flower.description}</p>
-      <data value={flower.price}>{flower.price}</data>
+      <data value={flower.price}>${flower.price.toFixed(2)}</data>
       <div className="flex gap-1">
+        <label className="flex items-center justify-center gap-2">
+          Enter quantity here:
+        </label>
         <button
+          className="flex flex-col items-end justify-center"
           type="button"
           onClick={() =>
             setQuantity((prevQuantity) =>
@@ -26,9 +32,14 @@ export default function Card({ flower }) {
         >
           -
         </button>
-        <label>Enter quantity here</label>
-        <input type="number" value={quantity} onChange={handleTypedInput} />
+        <input
+          className="w-10 rounded border px-2 py-1 text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          type="number"
+          value={quantity}
+          onChange={handleTypedInput}
+        />
         <button
+          className="flex flex-col items-end justify-center"
           type="button"
           onClick={() => setQuantity((prevQuantity) => prevQuantity + 1)}
         >
