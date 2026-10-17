@@ -2,11 +2,17 @@ import { useState } from "react";
 export default function Card({ flower }) {
   const [quantity, setQuantity] = useState(1);
 
+  // FIX: negative integer values should not be allowed in input box
   function handleTypedInput(e) {
     const val = e.target.value;
     if (val === "") {
       setQuantity("");
       return;
+    } else if (val === 0) {
+      setQuantity(1);
+    } else if (val.includes("-")) {
+      let stringifiedVal = String(val);
+      setQuantity(Number(stringifiedVal));
     }
     setQuantity(Number(val));
   }
@@ -34,14 +40,19 @@ export default function Card({ flower }) {
         </button>
         <input
           className="w-10 rounded border px-2 py-1 text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-          type="number"
+          type="text"
+          inputMode="numeric"
           value={quantity}
           onChange={handleTypedInput}
         />
         <button
           className="flex flex-col items-end justify-center"
           type="button"
-          onClick={() => setQuantity((prevQuantity) => prevQuantity + 1)}
+          onClick={() =>
+            setQuantity((prevQuantity) =>
+              prevQuantity === "" ? 1 : prevQuantity + 1,
+            )
+          }
         >
           +
         </button>
