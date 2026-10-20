@@ -2,19 +2,17 @@ import { useState } from "react";
 export default function Card({ flower }) {
   const [quantity, setQuantity] = useState(1);
 
-  // FIX: negative integer values should not be allowed in input box
   function handleTypedInput(e) {
-    const val = e.target.value;
-    if (val === "") {
+    const inputVal = e.target.value;
+    const cleanInput = inputVal.replace(/\D/g, "");
+
+    if (cleanInput === "") {
       setQuantity("");
       return;
-    } else if (val === 0) {
-      setQuantity(1);
-    } else if (val.includes("-")) {
-      let stringifiedVal = String(val);
-      setQuantity(Number(stringifiedVal));
+    } else if (Number(cleanInput) === 0) {
+      return;
     }
-    setQuantity(Number(val));
+    setQuantity(Number(cleanInput));
   }
 
   return (
@@ -24,11 +22,15 @@ export default function Card({ flower }) {
       <p>{flower.description}</p>
       <data value={flower.price}>${flower.price.toFixed(2)}</data>
       <div className="flex gap-1">
-        <label className="flex items-center justify-center gap-2">
+        <label
+          htmlFor={`quantity-input-${flower.id}`}
+          className="flex items-center justify-center gap-2"
+        >
           Enter quantity here:
         </label>
         <button
           className="flex flex-col items-end justify-center"
+          aria-label="decrement button"
           type="button"
           onClick={() =>
             setQuantity((prevQuantity) =>
@@ -39,14 +41,21 @@ export default function Card({ flower }) {
           -
         </button>
         <input
-          className="w-10 rounded border px-2 py-1 text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          id={`quantity-input-${flower.id}`}
+          className="w-10 rounded border px-2 py-1 text-center"
           type="text"
           inputMode="numeric"
           value={quantity}
           onChange={handleTypedInput}
+          onBlur={() =>
+            setQuantity((prevQuantity) =>
+              prevQuantity === "" ? 1 : prevQuantity,
+            )
+          }
         />
         <button
           className="flex flex-col items-end justify-center"
+          aria-label="increment button"
           type="button"
           onClick={() =>
             setQuantity((prevQuantity) =>
