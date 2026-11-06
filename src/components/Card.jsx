@@ -1,5 +1,6 @@
 import { useState } from "react";
-export default function Card({ flower }) {
+
+export default function Card({ flower, addToCart }) {
   const [quantity, setQuantity] = useState(1);
 
   function handleTypedInput(e) {
@@ -64,6 +65,13 @@ export default function Card({ flower }) {
           }
         >
           +
+        </button>
+        <button
+          type="button"
+          onClick={() => addToCart(flower, quantity)}
+          disabled={!quantity}
+        >
+          Add to cart
         </button>
       </div>
     </li>

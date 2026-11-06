@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import { useOutletContext } from "react-router";
+
 export default function ShopPage() {
   const [flowers, setFlowers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pageError, setPageError] = useState("");
+  const { addToCart } = useOutletContext();
 
   useEffect(() => {
     async function fetchData() {
@@ -45,7 +48,7 @@ export default function ShopPage() {
       <h1>Flower List</h1>
       <ul className="grid grid-flow-col grid-rows-3 gap-4">
         {flowers.map((flower) => {
-          return <Card key={flower.id} flower={flower} />;
+          return <Card addToCart={addToCart} key={flower.id} flower={flower} />;
         })}
       </ul>
     </div>
