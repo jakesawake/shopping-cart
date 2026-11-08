@@ -25,11 +25,32 @@ export default function Layout() {
   }
 
   const cartCounter = cart.reduce((acc, curr) => {
-    console.log(acc, curr.quantity);
     return acc + curr.quantity;
   }, 0);
 
-  console.log(cartCounter);
+  function removeFromCart(id) {
+    setCart((prev) => {
+      return prev.filter((item) => item.id !== id);
+    });
+  }
+
+  function updateQuantity(id, newQuantity) {
+    if (!Number.isInteger(newQuantity) || newQuantity < 0) {
+      return;
+    } else if (newQuantity === 0) {
+      removeFromCart(id);
+      return;
+    }
+    setCart((prev) => {
+      return prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: newQuantity };
+        } else {
+          return item;
+        }
+      });
+    });
+  }
 
   return (
     <div className="flex flex-col gap-10">
@@ -46,7 +67,7 @@ export default function Layout() {
         </nav>
       </header>
       <main>
-        <Outlet context={{ cart, setCart, addToCart }} />
+        <Outlet context={{ cart, addToCart, removeFromCart, updateQuantity }} />
       </main>
     </div>
   );
