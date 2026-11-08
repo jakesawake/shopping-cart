@@ -24,6 +24,13 @@ export default function Layout() {
     });
   }
 
+  const cartCounter = cart.reduce((acc, curr) => {
+    console.log(acc, curr.quantity);
+    return acc + curr.quantity;
+  }, 0);
+
+  console.log(cartCounter);
+
   return (
     <div className="flex flex-col gap-10">
       <header className="flex gap-4">
@@ -35,7 +42,7 @@ export default function Layout() {
         <nav className="flex gap-10">
           <Link to="/">Home</Link>
           <Link to="shop">Shop</Link>
-          <Link to="cart">Cart</Link>
+          <Link to="cart">Cart {cartCounter}</Link>
         </nav>
       </header>
       <main>
